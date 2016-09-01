@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>ECharts</title>
+
+    <!-- 布局样式文件，设定页面宽高为100% -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- 引入 echarts.js -->
+    <script src="vendors/echarts.min.js"></script>
+        <!-- 引入 echarts主题文件 -->
+    <script src="theme/infographic.js"></script>
+
+</head>
+<body bgcolor='#fff'>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" class="main"></div>
+    <!-- ECharts显示设置脚本-->
+    <script type="text/javascript">      
+    	// 基于准备好的dom，初始化echarts实例，加载主题
+        var chart = echarts.init(document.getElementById('main'), 'infographic');   
+
+        chart.setOption({
+        	//标题及相应规范链接路径设置，如果设置副标题则为subtext、sublink、subtarget		      	
+			title: {
+			    text: '标题(点击可查看规范)',
+			    link: 'http://10.9.233.35/pages/projectview/standardLib.html#stdl_8810210011001488',
+			    target:'blank',		//设置链接页面是新窗口打开（blank）还是当前窗口打开（self）	        			        
+			},
+			//提示框
+			tooltip: {
+			    trigger: 'item',  //触发类型 item 数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+	            				  //         axis 坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。
+			    formatter: "{b}<br/>{c} ({d}%)"//提示框浮层内容格式器 饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+			},	
+			//图例组件展现了不同系列的标记(symbol)，颜色和名字。可以通过点击图例控制哪些系列不显示			    	    
+			legend: {
+			    orient: 'vertical',//图例显示方式，horizontal / vertical
+			    x: 'right',		//图例横向位置可设置left、right、middle 
+			    y: 'middle',	//图例纵向位置可设置left、right、middle 		        			        	        
+			    data:['开户','续约','换卡','4G业务','缴费'] //图例的数据数组。数组项通常为一个字符串，每一项代表一个系列的 name（如果是饼图，也可以是饼图单个数据的 name)
+			},
+			series: [{
+			    name:'用户得分分布',
+			    type:'pie',
+			    radius: ['50%', '65%'], //圆环大小
+			    center:['50%','50%'], //圆环x，y位置
+			            	            
+			    //具体数据，其中name需要与legend中的data一致      
+			    data:[
+			        {value:395, name:'开户'},
+			        {value:310, name:'续约'},
+			        {value:300, name:'换卡'},
+			        {value:295, name:'4G业务'},
+			        {value:210, name:'缴费'},
+			    ]
+			}]
+		}); 
+
+    </script>
+</body>
+</html>
